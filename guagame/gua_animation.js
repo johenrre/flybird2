@@ -10,8 +10,13 @@ class Animation {
     }
 
     this.texture = this.frames[0]
+    this.w = this.texture.width
+    this.h = this.texture.height
     this.frameIndex = 0
     this.frameCount = 3
+    //
+    this.flipX = false
+    this.rotation = 0
   }
 
   static new(game) {

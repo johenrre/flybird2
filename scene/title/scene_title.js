@@ -2,63 +2,36 @@ class SceneTitle extends GuaScene {
     constructor(game) {
         super(game)
 
-        this.bird = bird.new(this.game)
-        this.bg = GuaImage.new(this.game, 'bg')
-        this.land = Land.new(this.game)
-
-        this.addElement(this.bg)
-        this.addElement(this.bird)
-        this.addElement(this.land)
+        this.init()
+        this.setupInputs()
     }
-    // draw() {
-    //     // draw labels
-    //     this.game.context.fillText('按 k 开始游戏', 100, 190)
-    // }
-}
+    init() {
+      this.bird = bird.new(this.game)
+      this.bg = GuaImage.new(this.game, 'bg')
+      this.land = Land.new(this.game)
+      this.pipes = Pipes.new(this.game)
 
-class bird extends Animation {
-  constructor(game) {
-    super(game, 3, 'bird')
-
-    this.setup()
-  }
-
-  setup() {
-    this.x = 140
-    this.y = 250
-    //重力和加速度
-    this.gy = 10
-    this.vy = 0
-  }
-
-  update() {
-    super.update()
-    if (this.y < 415) {
-      this.y += this.vy
-      this.vy = this.gy * 0.3
+      this.addElement(this.bg)
+      this.addElement(this.bird)
+      this.addElement(this.pipes)
+      this.addElement(this.land)
     }
-  }
-}
-
-class Land extends GuaImage {
-  constructor(game) {
-    super(game, 'land')
-
-    this.setup()
-  }
-
-  setup() {
-    this.y = 450
-    this.x = 0
-    this.z = 5
-  }
-
-  update() {
-    this.x -= 5
-    this.z --
-    if (this.z == 0) {
-      this.x = 0
-      this.z = 5
+    update() {
+      super.update()
+      let pipes = this.pipes.pipes
+      for (var i = 0; i < pipes.length; i++) {
+        if (this.bird.collide(pipes[i])) {
+          this.bird.kill()
+          // this.pipes.speed = 0
+          // this.land.speed = 0
+        }
+      }
+      // log('text', this.pipes.pipes.length)
     }
-  }
+
+    setupInputs() {
+      this.game.registerAction('j', () => {
+          this.bird.jump()
+      })
+    }
 }
