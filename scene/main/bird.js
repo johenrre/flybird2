@@ -6,7 +6,7 @@ class bird extends Animation {
   }
 
   setup() {
-    this.x = 110
+    this.x = 90
     this.y = 250
     //重力和加速度
     this.gy = 10
@@ -16,15 +16,20 @@ class bird extends Animation {
   }
 
   jump() {
-    this.vy = -10
-    this.rotation = -45
+    if (this.alive) {
+      this.vy = -10
+      this.rotation = -45
+    }
   }
 
   collide(pipe) {
-    return rectIntersects(this, pipe) || rectIntersects(pipe, this)
+    return this.alive && rectIntersects2(this, pipe)
   }
 
   kill() {
+    if (!this.alive) {
+      return
+    }
     this.alive = false
   }
 
@@ -44,16 +49,29 @@ class bird extends Animation {
   }
 
   update() {
-    super.update()
-    
-    this.y += this.vy
-    this.vy = this.gy * 0.4
-    if (this.y > 440) {
-      this.vy = 0
-    }
-    //更新角度
-    if (this.rotation < 45) {
-      this.rotation += 5
+    if (!this.alive) {
+      this.y += this.vy
+      //更新角度
+      if (this.rotation < 90) {
+        this.rotation += 8
+      }
+
+      if (this.y > 440) {
+        this.vy = 0
+      }
+    } else {
+      super.update()
+
+      this.y += this.vy
+      this.vy = this.gy * 0.4
+
+      if (this.rotation < 45) {
+        this.rotation += 8
+      }
+
+      if (this.y > 440) {
+        this.vy = 0
+      }
     }
   }
 }

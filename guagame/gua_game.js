@@ -8,6 +8,7 @@ class GuaGame {
         this.scene = null
         this.actions = {}
         this.keydowns = {}
+        this.score = 0
         this.canvas = document.querySelector('#id-canvas')
         this.context = this.canvas.getContext('2d')
         // events
@@ -30,7 +31,10 @@ class GuaGame {
     }
     // update
     update() {
-        this.scene.update()
+      if (this.pause) {
+        return
+      }
+      this.scene.update()
     }
     // draw
     draw() {

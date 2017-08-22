@@ -9,29 +9,37 @@ class SceneTitle extends GuaScene {
       this.bird = bird.new(this.game)
       this.bg = GuaImage.new(this.game, 'bg')
       this.land = Land.new(this.game)
-      this.pipes = Pipes.new(this.game)
+      this.score = Score.new(this.game)
+      this.biaoti = GuaImage.new(this.game, 'biaoti')
+      this.biaoti.x = 50
+      this.biaoti.y = 140
+      this.updown = false
+      this.count = 5
+      this.step = 0
+      this.bird.gy = 4
+
 
       this.addElement(this.bg)
-      this.addElement(this.bird)
-      this.addElement(this.pipes)
       this.addElement(this.land)
+      this.addElement(this.score)
+      this.addElement(this.biaoti)
+      this.addElement(this.bird)
     }
     update() {
       super.update()
-      let pipes = this.pipes.pipes
-      for (var i = 0; i < pipes.length; i++) {
-        if (this.bird.collide(pipes[i])) {
-          this.bird.kill()
-          // this.pipes.speed = 0
-          // this.land.speed = 0
-        }
+      this.bird.rotation = 0
+      this.step += 1
+      if (this.step === this.count) {
+        this.step = 0
+        this.updown = !this.updown
       }
-      // log('text', this.pipes.pipes.length)
+      this.bird.vy = this.updown ? this.bird.vy * -1 : this.bird.vy
     }
 
     setupInputs() {
       this.game.registerAction('j', () => {
-          this.bird.jump()
+        var s = Scene.new(this.game)
+        this.game.replaceScene(s)
       })
     }
 }

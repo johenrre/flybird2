@@ -41,6 +41,18 @@ var __main = function() {
         land: 'img/land.png',
         pipe_up: 'img/pipe_up.png',
         pipe_down: 'img/pipe_down.png',
+        biaoti: 'img/text_ready.png',
+        end: 'img/text_game_over.png',
+        font1: 'img/1.png',
+        font2: 'img/2.png',
+        font3: 'img/3.png',
+        font4: 'img/4.png',
+        font5: 'img/5.png',
+        font6: 'img/6.png',
+        font7: 'img/7.png',
+        font8: 'img/8.png',
+        font9: 'img/9.png',
+        font0: 'img/0.png',
     }
     var game = GuaGame.instance(30, images, function(g){
         var s = SceneTitle.new(g)

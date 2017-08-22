@@ -10,9 +10,17 @@ class Land extends GuaImage {
     this.y = 480
     this.x = 0
     this.z = 5
+    this.pause = false
+  }
+
+  stop() {
+    this.pause = true
   }
 
   update() {
+    if (this.pause) {
+      return
+    }
     this.x -= this.speed
     this.z --
     if (this.z == 0) {
