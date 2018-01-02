@@ -62,4 +62,4 @@ var __main = function() {
     enableDebugMode(game, true)
 }
 
-// __main()
+__main()
